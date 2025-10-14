@@ -31,7 +31,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item">@yield('activePageURL')</li>
-              
+
               <li class="breadcrumb-item active">@yield('contentPage')</li>
             </ol>
           </div><!-- /.col -->
@@ -43,7 +43,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-        <div class="row">
+        <div class="row"  style="padding-top: 50px;">
 
         @yield('content')
 
