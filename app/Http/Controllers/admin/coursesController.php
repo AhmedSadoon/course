@@ -59,4 +59,17 @@ class coursesController extends Controller
 
     }
 
+    public function destroy($id){
+         $data=course::findOrFail( $id );
+        if(empty($data)){
+                    return redirect()->route('courses.index')->with('error','غير قادر للوصول الى البيانات');
+
+        }
+        $data->delete();
+
+                return redirect()->route('courses.index')->with('success','تم حذف الكورس بنجاح');
+
+
+    }
+
 }
