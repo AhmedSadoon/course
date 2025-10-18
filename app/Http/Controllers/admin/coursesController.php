@@ -33,4 +33,30 @@ class coursesController extends Controller
         $course->save();
         return redirect()->route('courses.index')->with('success','تم اضافة الكورس بنجاح');
     }
+
+    public function edit($id){
+        $data=course::findOrFail( $id );
+        if(empty($data)){
+                    return redirect()->route('courses.index')->with('error','غير قادر للوصول الى البيانات');
+
+        }
+        return view('courses.edit',['data'=>$data]);
+    }
+
+    public function update(CreateCourseRequest $request, $id){
+        $data=course::findOrFail( $id );
+        if(empty($data)){
+                    return redirect()->route('courses.index')->with('error','غير قادر للوصول الى البيانات');
+
+        }
+
+
+        $data->name=$request->name;
+        $data->active=$request->active;
+
+        $data->save();
+        return redirect()->route('courses.index')->with('success','تم تعديل بيانات الكورس بنجاح');
+
+    }
+
 }

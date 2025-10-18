@@ -1,13 +1,13 @@
 @extends('layouts.main_layout')
 
 @section('title')
-    اضافة كورس
+    تعديل كورس
 @endsection
 @section('css')
 @endsection
 
 @section('activePage')
-    اضافة كورس
+    تعديل كورس
 @endsection
 
 @section('activePageURL')
@@ -15,7 +15,7 @@
 @endsection
 
 @section('contentPage')
-    اضافة كورس
+    تعديل كورس
 @endsection
 
 
@@ -31,13 +31,13 @@
 
 
         <form role="form" style="width:80%; margin: 0 auto;background-color: white" method="POST"
-            action="{{ route('courses.store') }}">
+            action="{{ route('courses.update',$data->id) }}">
             @csrf
             <div class="card-body">
                 <div class="form-group">
                     <label for="name">اسم الكورس</label>
                     <input type="text" autofocus class="form-control" id="name" name="name"
-                        value="{{ old('name') }}" placeholder="ادخل اسم الكورس">
+                        value="{{ old('name',$data['name']) }}" placeholder="ادخل اسم الكورس">
                     @error('name')
                         <span style="color: red">{{ $message }}</span>
                     @enderror
@@ -46,8 +46,8 @@
                     <label>حالة التفعيل</label>
                     <select name="active" id="active" class="form-control">
                         <option value="">اختر الحالة</option>
-                        <option value="1" @if (old('active') == 1) selected @endif>مفعل</option>
-                        <option value="0" @if (old('active') == 0 and old('active') != '') selected @endif>غير مفعل</option>
+                        <option value="1" @if (old('active',$data['active']) == 1) selected @endif>مفعل</option>
+                        <option value="0" @if (old('active',$data['active']) == 0 and old('active',$data['active']) != '') selected @endif>غير مفعل</option>
                     </select>
                     @error('active')
                         <span style="color: red">{{ $message }}</span>
@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="form-group" style="text-align: center">
-                    <button type="submit" class="btn btn-primary">اضافة</button>
+                    <button type="submit" class="btn btn-primary">تعديل</button>
                 </div>
             </div>
 

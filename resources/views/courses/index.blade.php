@@ -28,17 +28,23 @@
                 </h3>
                 {{-- كود اضهار رسالة الاشعار --}}
                 @if (Session::has('success'))
-                <div class="alert alert-success" role="alert">
-                    {{ Session::get('success') }}
-                </div>
+                    <div class="alert alert-success" role="alert">
+                        {{ Session::get('success') }}
+                    </div>
+                @endif
 
+                {{-- كود اضهار رسالة الاشعار --}}
+                @if (Session::has('error'))
+                    <div class="alert alert-error" role="alert">
+                        {{ Session::get('error') }}
+                    </div>
                 @endif
 
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0" style="height: 300px;">
 
-                @if (isset($data) and !@empty($data) and count($data)>0)
+                @if (isset($data) and !@empty($data) and count($data) > 0)
                     <table id="example2" class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -53,12 +59,20 @@
                             @foreach ($data as $info)
                                 <tr>
                                     <td>{{ $info->name }}</td>
-                                    <td>@if($info->active==1) مفعل @else غير مفعل @endif</td>
+                                    <td>
+                                        @if ($info->active == 1)
+                                            مفعل
+                                        @else
+                                            غير مفعل
+                                        @endif
+                                    </td>
                                     <td>{{ $info->created_at }}</td>
                                     <td>{{ $info->updated_at }}</td>
                                     <td>
-                                        <a href="#" class="button" style="background-color: #04AA60;padding: 10px;color: white">تعديل</a>
-                                        <a href="#" class="button" style="background-color: #aa0704;padding: 10px; color: white">حذف</a>
+                                        <a href="{{ route('courses.edit', $info->id) }}" class="button"
+                                            style="background-color: #04AA60;padding: 10px;color: white">تعديل</a>
+                                        <a href="{{ route('courses.destroy', $info->id) }}" class="button"
+                                            style="background-color: #aa0704;padding: 10px; color: white">حذف</a>
 
                                     </td>
                                 </tr>
