@@ -23,8 +23,16 @@
     <div class="col-12" style="padding: 15px; background-color: white;">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title" style="text-align: center; float: none;">بيانات الكورسات</h3>
+                <h3 class="card-title" style="text-align: center; float: none;">بيانات الكورسات
+                    <a class="btn btn-sm btn-success" href="{{ route('courses.create') }}">اضافة</a>
+                </h3>
+                {{-- كود اضهار رسالة الاشعار --}}
+                @if (Session::has('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ Session::get('success') }}
+                </div>
 
+                @endif
 
             </div>
             <!-- /.card-header -->
@@ -49,8 +57,8 @@
                                     <td>{{ $info->created_at }}</td>
                                     <td>{{ $info->updated_at }}</td>
                                     <td>
-                                        <a href="{{ route('courses.edit',$info->id) }}" class="button" style="background-color: #04AA60;padding: 10px;color: white">تعديل</a>
-                                        <a href="{{  route('courses.destroy',$info->id) }}" class="button" style="background-color: #aa0704;padding: 10px; color: white">حذف</a>
+                                        <a href="#" class="button" style="background-color: #04AA60;padding: 10px;color: white">تعديل</a>
+                                        <a href="#" class="button" style="background-color: #aa0704;padding: 10px; color: white">حذف</a>
 
                                     </td>
                                 </tr>
