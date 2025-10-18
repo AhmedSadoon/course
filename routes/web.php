@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\coursesController;
+use App\Http\Controllers\admin\StudentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,7 +17,14 @@ Route::get('edit_courses/{id}', [coursesController::class,'edit'])->name('course
 Route::post('update_courses/{id}', [coursesController::class,'update'])->name('courses.update');
 Route::get('destroy_courses/{id}', [coursesController::class,'destroy'])->name('courses.destroy');
 
+//------------------end courses----------------
 
-
+//------------------start courses----------------
+Route::get('student', [StudentController::class,'index'])->name('student.index');
+Route::get('create_student', [StudentController::class,'create'])->name('student.create');
+Route::post('store_student', [StudentController::class,'store'])->name('student.store');
+Route::get('edit_student/{id}', [StudentController::class,'edit'])->name('student.edit');
+Route::post('update_student/{id}', [StudentController::class,'update'])->name('student.update');
+Route::get('destroy_student/{id}', [StudentController::class,'destroy'])->name('student.destroy');
 
 //------------------end courses----------------
