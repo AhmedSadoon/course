@@ -30,7 +30,18 @@ class StudentController extends Controller
         $Student->name=$request->name;
         $Student->phone=$request->phone;
         $Student->address=$request->address;
-        $Student->image=$request->image;
+
+        //upload image
+        if($request->has("image")){
+            $image=$request->image;
+            $extension=strtolower($image->extension());
+            $fileName=time().rand(1,1000).".".$extension;
+          
+            $image->move('uploads',$fileName);
+        }
+        $Student->image=$fileName;
+
+
         $Student->nationalID=$request->nationalID;
         $Student->notes=$request->notes;
         $Student->active=$request->active;

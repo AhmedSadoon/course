@@ -62,7 +62,7 @@
                  <div class="form-group">
                     <label for="image">الصورة</label>
                     <input type="file"  class="form-control" id="image" name="image"
-                        value="{{ old('image') }}" placeholder="ادخل العنوان">
+                        value="{{ old('image') }}">
 
                 </div>
 
@@ -79,7 +79,7 @@
                     <label for="notes">الملاحظات </label>
                     <input type="text"  class="form-control" id="notes" name="notes"
                         value="{{ old('notes') }}" placeholder="ادخل الملاحظات">
-                   
+
                 </div>
 
                 <div class="form-group">
