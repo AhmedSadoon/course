@@ -1,21 +1,21 @@
 @extends('layouts.main_layout')
 
 @section('title')
-    تعديل طالب
+    تعديل دورة تدريبية
 @endsection
 @section('css')
 @endsection
 
 @section('activePage')
-    تعديل طالب
+    تعديل دورة تدريبية
 @endsection
 
 @section('activePageURL')
-    <a href="{{ route('courses.index') }}">الطلاب</a>
+    <a href="{{ route('training_courses.index') }}">دورة تدريبية</a>
 @endsection
 
 @section('contentPage')
-    تعديل طالب
+    تعديل دورة تدريبية
 @endsection
 
 
@@ -31,68 +31,54 @@
 
 
         <form role="form" style="width:80%; margin: 0 auto;background-color: white" method="POST"
-            action="{{ route('student.update',$data['id']) }}" enctype="multipart/form-data">
+            action="{{ route('training_courses.update',$data['id']) }}">
             @csrf
             <div class="card-body">
                 <div class="form-group">
-                    <label for="name">اسم الطالب</label>
-                    <input type="text" autofocus class="form-control" id="name" name="name"
-                        value="{{ old('name',$data['name']) }}" placeholder="ادخل اسم الطالب">
-                    @error('name')
+                    <label for="name">الدورة</label>
+                    <select name="courseID" id="courseID" class="form-control">
+                        <option value="">اختر الدورة</option>
+                        @if(!@empty($courses))
+                            @foreach ($courses as $info)
+                            <option value="{{ $info->id }}" @if(old('courseID',$data['courseID']==$info->id)) selected @endif>{{ $info->name }}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                    @error('courseID')
                         <span style="color: red">{{ $message }}</span>
                     @enderror
                 </div>
 
                  <div class="form-group">
-                    <label for="phone">الهاتف</label>
-                    <input type="text"  class="form-control" id="phone" name="phone"
-                        value="{{ old('phone',$data['phone']) }}" placeholder="ادخل رقم الهاتف">
-                    @error('phone')
+                    <label for="price">سعر الدورة</label>
+                    <input type="text" oninput="this.value=this.value.replace(/[^0-9.]/g,'');"  class="form-control" id="price" name="price"
+                        value="{{ old('price',$data['price']*1) }}" placeholder="ادخل سعر الدورة">
+                    @error('price')
                         <span style="color: red">{{ $message }}</span>
                     @enderror
                 </div>
 
                   <div class="form-group">
-                    <label for="address">العنوان</label>
-                    <input type="text"  class="form-control" id="address" name="address"
-                        value="{{ old('address',$data['address']) }}" placeholder="ادخل العنوان">
+                    <label for="start_date">تاريخ بداية الدورة</label>
+                    <input type="date"  class="form-control" id="start_date" name="start_date"
+                        value="{{ old('start_date',$data['start_date']) }}">
 
                 </div>
 
                  <div class="form-group">
-                    <label for="image">الصورة</label> <br>
-                    <img src="{{ asset('uploads/'.$data['image']) }}" alt="صورة الطالب" style="width: 150px;height: 150px; border-radius: 50%"><br><br>
-                    <input type="file"  class="form-control" id="image" name="image"
-                        value="{{ old('image') }}">
+                    <label for="end_date">تاريخ نهاية الدورة</label>
+                    <input type="date"  class="form-control" id="end_date" name="end_date"
+                        value="{{ old('end_date',$data['end_date']) }}">
 
                 </div>
 
-                <div class="form-group">
-                    <label for="nationalID">رقم الهوية</label>
-                    <input type="text"  class="form-control" id="nationalID" name="nationalID"
-                        value="{{ old('nationalID',$data['nationalID']) }}" placeholder="ادخل رقم الهوية">
-                    @error('nationalID')
-                        <span style="color: red">{{ $message }}</span>
-                    @enderror
-                </div>
+
 
                 <div class="form-group">
                     <label for="notes">الملاحظات </label>
                     <input type="text"  class="form-control" id="notes" name="notes"
                         value="{{ old('notes',$data['notes']) }}" placeholder="ادخل الملاحظات">
 
-                </div>
-
-                <div class="form-group">
-                    <label>حالة التفعيل</label>
-                    <select name="active" id="active" class="form-control">
-                        <option value="">اختر الحالة</option>
-                        <option value="1" @if (old('active',$data['active']) == 1) selected @endif>مفعل</option>
-                        <option value="0" @if (old('active',$data['active']) == 0 and old('active',$data['active']) != '') selected @endif>غير مفعل</option>
-                    </select>
-                    @error('active')
-                        <span style="color: red">{{ $message }}</span>
-                    @enderror
                 </div>
 
                 <div class="form-group" style="text-align: center">
