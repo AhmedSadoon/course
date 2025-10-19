@@ -36,7 +36,7 @@ class StudentController extends Controller
             $image=$request->image;
             $extension=strtolower($image->extension());
             $fileName=time().rand(1,1000).".".$extension;
-          
+
             $image->move('uploads',$fileName);
         }
         $Student->image=$fileName;
@@ -51,39 +51,55 @@ class StudentController extends Controller
     }
 
     public function edit($id){
-        $data=course::findOrFail( $id );
+        $data=Student::findOrFail( $id );
         if(empty($data)){
-                    return redirect()->route('courses.index')->with('error','غير قادر للوصول الى البيانات');
+                    return redirect()->route('student.index')->with('error','غير قادر للوصول الى البيانات');
 
         }
-        return view('courses.edit',['data'=>$data]);
+        return view('student.edit',['data'=>$data]);
     }
 
-    public function update(CreateCourseRequest $request, $id){
-        $data=course::findOrFail( $id );
-        if(empty($data)){
-                    return redirect()->route('courses.index')->with('error','غير قادر للوصول الى البيانات');
+    public function update(StudentRequest $request, $id){
+        $Student=Student::findOrFail( $id );
+        if(empty($Student)){
+                    return redirect()->route('student.index')->with('error','غير قادر للوصول الى البيانات');
 
         }
 
+        $Student->name=$request->name;
+        $Student->phone=$request->phone;
+        $Student->address=$request->address;
 
-        $data->name=$request->name;
-        $data->active=$request->active;
+        //upload image
+        if($request->has("image")){
+            $image=$request->image;
+            $extension=strtolower($image->extension());
+            $fileName=time().rand(1,1000).".".$extension;
 
-        $data->save();
-        return redirect()->route('courses.index')->with('success','تم تعديل بيانات الكورس بنجاح');
+            $image->move('uploads',$fileName);
+            $Student->image=$fileName;
+        }
+
+
+
+        $Student->nationalID=$request->nationalID;
+        $Student->notes=$request->notes;
+        $Student->active=$request->active;
+
+        $Student->save();
+        return redirect()->route('student.index')->with('success','تم تعديل بيانات الطالب بنجاح');
 
     }
 
     public function destroy($id){
-         $data=course::findOrFail( $id );
+         $data=Student::findOrFail( $id );
         if(empty($data)){
-                    return redirect()->route('courses.index')->with('error','غير قادر للوصول الى البيانات');
+                    return redirect()->route('student.index')->with('error','غير قادر للوصول الى البيانات');
 
         }
         $data->delete();
 
-                return redirect()->route('courses.index')->with('success','تم حذف الكورس بنجاح');
+                return redirect()->route('student.index')->with('success','تم حذف الطالب بنجاح');
 
 
     }
