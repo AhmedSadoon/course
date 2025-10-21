@@ -37,5 +37,6 @@ Route::post('store_training_courses', [Training_coursesController::class,'store'
 Route::get('edit_training_courses/{id}', [Training_coursesController::class,'edit'])->name('training_courses.edit');
 Route::post('update_training_courses/{id}', [Training_coursesController::class,'update'])->name('training_courses.update');
 Route::get('destroy_training_courses/{id}', [Training_coursesController::class,'destroy'])->name('training_courses.destroy');
+Route::get('detalis_training_courses/{id}', [Training_coursesController::class,'detalis'])->name('training_courses.detalis');
 
 //------------------end training_courses----------------

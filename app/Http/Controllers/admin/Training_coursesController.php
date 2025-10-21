@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TrainingCoursesRequest;
 use App\Models\course;
 use App\Models\Training_courses;
+use App\Models\training_courses_enrolments;
 use Illuminate\Http\Request;
 
 class Training_coursesController extends Controller
@@ -81,6 +82,19 @@ class Training_coursesController extends Controller
         $data->delete();
 
                 return redirect()->route('training_courses.index')->with('success','تم حذف الدورة بنجاح');
+
+
+    }
+
+      public function detalis($id){
+         $data=Training_courses::findOrFail( $id );
+        if(empty($data)){
+                    return redirect()->route('training_courses.index')->with('error','غير قادر للوصول الى البيانات');
+
+        }
+                 $data['couser_name']=course::where('id','=',$data['courseID'])->value('name');
+                $data['studentCounter']=training_courses_enrolments::where('training_coursesID','=',$id)->count();
+                return view('training_courses.detalis',['data'=>$data]);
 
 
     }

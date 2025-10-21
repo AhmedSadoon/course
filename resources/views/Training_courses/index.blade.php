@@ -69,7 +69,9 @@
                                     <td>{{ $info->created_at }}</td>
                                     <td>{{ $info->updated_at }}</td>
                                     <td>
-                                        <a href="{{ route('training_courses.edit', $info->id) }}"
+                                        <a href="{{ route('training_courses.detalis', $info->id) }}"
+                                            class="btn btn-sm btn-info">تفاصيل الدورة</a>
+                                            <a href="{{ route('training_courses.edit', $info->id) }}"
                                             class="btn btn-sm btn-success">تعديل</a>
                                         <a href="{{ route('training_courses.destroy', $info->id) }}"
                                             class="btn btn-sm btn-danger">حذف</a>
