@@ -27,6 +27,7 @@ Route::post('store_student', [StudentController::class,'store'])->name('student.
 Route::get('edit_student/{id}', [StudentController::class,'edit'])->name('student.edit');
 Route::post('update_student/{id}', [StudentController::class,'update'])->name('student.update');
 Route::get('destroy_student/{id}', [StudentController::class,'destroy'])->name('student.destroy');
+Route::post('ajax_search_student', [StudentController::class,'ajax_search_student'])->name('student.ajax_search_student');
 
 //------------------end student----------------
 

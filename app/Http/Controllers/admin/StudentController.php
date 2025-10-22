@@ -104,4 +104,16 @@ class StudentController extends Controller
 
     }
 
+     public function ajax_search_student(Request $request){
+
+        if($request->ajax()){
+            $name=$request->name;
+            $data=Student::where('name','like',"%{$name}%")->get();
+
+        }
+
+        return view('student.ajax_search_student',['data'=>$data]);
+
+    }
+
 }
