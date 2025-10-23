@@ -10,6 +10,8 @@ Route::get('/', function () {
 })->name('home');
 
 
+
+
 //------------------start courses----------------
 Route::get('courses', [coursesController::class,'index'])->name('courses.index');
 Route::get('create_courses', [coursesController::class,'create'])->name('courses.create');

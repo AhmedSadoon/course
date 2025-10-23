@@ -5,12 +5,15 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentRequest;
 use App\Models\Student;
+use App\Traits\GaneralTaits;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+    use GaneralTaits;
        public function index(){
-        $data=Student::all();
+        //$this->ahmed();
+        $data=Student::paginate(10);
         return view("student.index",['data'=>$data]);
     }
 
@@ -108,7 +111,7 @@ class StudentController extends Controller
 
         if($request->ajax()){
             $name=$request->name;
-            $data=Student::where('name','like',"%{$name}%")->get();
+            $data=Student::where('name','like',"%{$name}%")->paginate(1);
 
         }
 

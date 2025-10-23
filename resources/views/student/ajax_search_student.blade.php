@@ -46,6 +46,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                     <div class="col-md-12" id="ajax_pagination_in_search">
+                      <br>  {{ $data->links('pagination::bootstrap-4') }}
+                    </div>
                 @else
                     <p style="text-align: center;color: brown;margin-top: 10px">عفواً لا توجد بيانات لعرضها</p>
                 @endif

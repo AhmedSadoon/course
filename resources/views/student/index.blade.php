@@ -24,7 +24,7 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title" style="text-align: center; float: none;">بيانات الطلاب
-                    <a class="btn btn-sm btn-success" href="{{ route('student.create') }}">اضافة</a>
+                    <a class="btn btn-sm btn-success" href="{{ route('student.create') }}">{{ __('mycustome.ADDNEW') }}</a>
                 </h3>
                 {{-- كود اضهار رسالة الاشعار --}}
                 @if (Session::has('success'))
@@ -97,6 +97,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="col-md-12">
+                        <br> {{ $data->links('pagination::bootstrap-4') }}
+                    </div>
                 @else
                     <p style="text-align: center;color: brown;margin-top: 10px">عفواً لا توجد بيانات لعرضها</p>
                 @endif
@@ -121,7 +124,10 @@
                     type: 'post',
                     'dataType': 'html',
                     cache: false,
-                    data: {"_token": '{{ csrf_token() }}',name: name},
+                    data: {
+                        "_token": '{{ csrf_token() }}',
+                        name: name
+                    },
 
                     success: function(data) {
                         $('#ajax_responce_div').html(data);
@@ -134,7 +140,31 @@
 
             });
 
+            $(document).on('click', '#ajax_pagination_in_search a ', function(e) {
+                e.preventDefault();
+                var name = $(this).val();
+                var url = $(this).attr("href");
 
+                   jQuery.ajax({
+                    url: url,
+                    type: 'post',
+                    'dataType': 'html',
+                    cache: false,
+                    data: {
+                        "_token": '{{ csrf_token() }}',
+                        name: name
+                    },
+
+                    success: function(data) {
+                        $('#ajax_responce_div').html(data);
+                    },
+                    error: function() {
+
+                    },
+
+                });
+
+            });
 
         });
     </script>
