@@ -5,8 +5,11 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentRequest;
 use App\Models\Student;
+use App\Models\User;
+use App\Notifications\createStudent;
 use App\Traits\GaneralTaits;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class StudentController extends Controller
 {
@@ -50,6 +53,10 @@ class StudentController extends Controller
         $Student->active=$request->active;
 
         $Student->save();
+        //ارسال اشعار لكل المستخدمين
+        $users=User::select('id')->get();
+        $content='تم اضافة طالب جديد بأسم '. $request->name;
+        Notification::send($users,new createStudent($request->name,$content));
         return redirect()->route('student.index')->with('success','تم اضافة الطالب بنجاح');
     }
 
