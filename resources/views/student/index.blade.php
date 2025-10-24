@@ -39,12 +39,23 @@
                         {{ Session::get('error') }}
                     </div>
                 @endif
-
+                    <div class="row">
                 <div class="col-md-3">
                     <input type="text" class="form-control" id="searchByName" name="searchByName"
                         placeholder="بحث باسم الطالب">
                 </div><br>
 
+                <div class="col-md-3">
+                    <div class="form-group">
+
+                    <select name="active_search" id="active_search" class="form-control">
+                        <option value="all">اختر الحالة</option>
+                        <option value="1">مفعل</option>
+                        <option value="0" >غير مفعل</option>
+                    </select>
+
+                </div>
+                </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0" style="height: 300px;" id="ajax_responce_div">
@@ -115,9 +126,9 @@
     <script>
         $(document).ready(function() {
 
-            $(document).on('input', '#searchByName', function(e) {
-
-                var name = $(this).val();
+            function make_search(){
+                 var name = $('#searchByName').val();
+                 var active_search = $('#active_search').val();
 
                 jQuery.ajax({
                     url: '{{ route('student.ajax_search_student') }}',
@@ -126,7 +137,8 @@
                     cache: false,
                     data: {
                         "_token": '{{ csrf_token() }}',
-                        name: name
+                        name: name,
+                        active:active_search
                     },
 
                     success: function(data) {
@@ -137,22 +149,36 @@
                     },
 
                 });
+            }
+
+            $(document).on('input', '#searchByName', function(e) {
+
+               make_search();
+
+            });
+
+               $(document).on('change', '#active_search', function(e) {
+
+               make_search();
 
             });
 
             $(document).on('click', '#ajax_pagination_in_search a ', function(e) {
                 e.preventDefault();
-                var name = $(this).val();
+                 var name = $('#searchByName').val();
+                 var active_search = $('#active_search').val();
+
                 var url = $(this).attr("href");
 
-                   jQuery.ajax({
+                jQuery.ajax({
                     url: url,
                     type: 'post',
                     'dataType': 'html',
                     cache: false,
                     data: {
                         "_token": '{{ csrf_token() }}',
-                        name: name
+                        name: name,
+                        active:active_search
                     },
 
                     success: function(data) {

@@ -118,7 +118,32 @@ class StudentController extends Controller
 
         if($request->ajax()){
             $name=$request->name;
-            $data=Student::where('name','like',"%{$name}%")->paginate(1);
+            $active=$request->active;
+
+            if(empty($name)){
+                //اعمل شرط دائما يرجع قيمة صحيحة
+                $filed1="id";
+                $operator1=">";
+                $value1=0;
+            }else{
+                   $filed1="name";
+                $operator1="like";
+                $value1="%{$name}%";
+            }
+
+              if($active=="all"){
+                //اعمل شرط دائما يرجع قيمة صحيحة
+                $filed2="id";
+                $operator2=">";
+                $value2=0;
+            }else{
+                   $filed2="active";
+                $operator2="=";
+                $value2=$active;
+            }
+
+
+            $data=Student::where($filed1,$operator1,$value1)->where($filed2,$operator2,$value2)->paginate(1);
 
         }
 
